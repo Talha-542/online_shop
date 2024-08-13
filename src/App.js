@@ -1,16 +1,34 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Login from './Components/Login/Login';
 import Home from './Components/Home/Home';
+import Product from './Components/Products/Product';
+import Cart from './Components/Cart/Cart';
+import Login from './Components/Login/Login';
 
-function App() {
+export default function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return (
-    <div className="App">
-      {isAuthenticated ? <Home /> : <Login />}
-    </div>
+    <BrowserRouter>
+        <Routes>
+        <Route
+          path="/home"
+          element={isAuthenticated ? <Home /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/products"
+          element={isAuthenticated ? <Product /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/cart"
+          element={isAuthenticated ? <Cart /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/"
+          element={!isAuthenticated ? <Login /> : <Navigate to="/home" />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

@@ -1,22 +1,18 @@
-// import React from 'react';
-// import { useDispatch } from 'react-redux';
-// import { logout } from '../../Redux/verifySlice';
-// import { useNavigate } from 'react-router-dom';
+// Logout.js
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../Redux/verifySlice';
 
-// const LogoutButton = () => {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
+const Logout = () => {
+  const dispatch = useDispatch();
 
-//   const handleLogout = () => {
-//     dispatch(logout());
-//     navigate('/');
-//   };
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
-//   return (
-//     <button onClick={handleLogout}>
-//       Logout
-//     </button>
-//   );
-// };
+  return (
+    <button onClick={handleLogout}>Logout</button>
+  );
+};
 
-// export default LogoutButton;
+export default Logout;

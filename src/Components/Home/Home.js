@@ -1,11 +1,22 @@
 import React from 'react';
-const Home = () => {
-  return (
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../Redux/verifySlice'; // Adjust the path to your authSlice
 
+const Home = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch the logout action
+    navigate('/login'); // Redirect to the login page
+  };
+
+  return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">E-commerce</a>
+          <Link className="navbar-brand" to="/">E-commerce</Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -20,17 +31,16 @@ const Home = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                <Link className="nav-link" to="/home">Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Features</a>
+                <Link className="nav-link" to="#">Features</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Pricing</a>
+                <Link className="nav-link" to="#" >Pricing</Link>
               </li>
-              <li className="nav-item" >
-                <a className="nav-link " href="#">logout</a>
-               
+              <li className="nav-item">
+                <button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button>
               </li>
             </ul>
           </div>
