@@ -14,31 +14,39 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username</label>
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Login</h2>
+      <form onSubmit={handleSubmit} className="card p-4">
+        <div className="mb-3">
+          <label className="form-label">Username</label>
           <input
             type="text"
+            className="form-control"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label>Password</label>
+        <div className="mb-3">
+          <label className="form-label">Password</label>
           <input
             type="password"
+            className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <button type="submit" disabled={status === 'loading'}>
+        <button
+          type="submit"
+          className="btn btn-primary w-100"
+          disabled={status === 'loading'}
+        >
           {status === 'loading' ? 'Logging in...' : 'Login'}
         </button>
-        {status === 'failed' && <p>Error: {error}</p>}
+        {status === 'failed' && (
+          <p className="text-danger mt-3">Error: {error}</p>
+        )}
       </form>
     </div>
   );
