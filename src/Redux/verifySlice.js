@@ -1,16 +1,17 @@
-// src/features/auth/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Async thunk for login
 export const login = createAsyncThunk(
   'auth/login',
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post('https://fakestoreapi.com/auth/login', credentials);
-      return response.data;
+      return response.data; 
     } catch (error) {
-      return rejectWithValue(error.response.data || error.message);
+      if (!error.response) {
+        return rejectWithValue('Network error. Please check your internet connection.');
+      }
+      return rejectWithValue(error.response.data || 'An error occurred.');
     }
   }
 );
@@ -29,8 +30,6 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.isAuthenticated = false;
-      state.status = 'idle';
-      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -45,7 +44,7 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload || action.error.message;
+        state.error = action.payload;
       });
   },
 });

@@ -14,7 +14,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 ">
       <h2 className="text-center mb-4">Login</h2>
       <form onSubmit={handleSubmit} className="card p-4">
         <div className="mb-3">
