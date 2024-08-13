@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../Redux/verifySlice'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'; 
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -36,9 +38,9 @@ const Header = () => {
               <li className="nav-item">
                 <Link className="nav-link" to='/product'>Products</Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to='/cart' >Cart</Link>
-              </li>
+              <Link className="nav-link" to="/cart">
+                  <FontAwesomeIcon icon={faCartShopping} /> {/* Cart icon */}
+                </Link>
               {/* <li className="nav-item">
                 <Link className="nav-link" to='/login' >Login</Link>
               </li> */}
