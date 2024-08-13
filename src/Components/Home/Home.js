@@ -1,7 +1,7 @@
 import React from 'react';
-
 const Home = () => {
   return (
+
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
@@ -28,8 +28,9 @@ const Home = () => {
               <li className="nav-item">
                 <a className="nav-link" href="#">Pricing</a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Logout</a>
+              <li className="nav-item" >
+                <a className="nav-link " href="#">logout</a>
+               
               </li>
             </ul>
           </div>
