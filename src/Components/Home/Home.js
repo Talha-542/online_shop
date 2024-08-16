@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom'; 
 // import Products from '../Products/ProductsList';
+import onlineshopImg from '../../assets/onlineshop.jpg'; 
 
 const Home = () => {
   return (
@@ -19,7 +20,7 @@ const Home = () => {
           </Col>
           <Col md={6}>
             <img
-              src="https://via.placeholder.com/600x400?text=Shop+Now"
+              src={onlineshopImg} 
               alt="Shop Now"
               className="img-fluid rounded"
             />
@@ -53,7 +54,6 @@ const Home = () => {
           </Col>
         </Row>
 
-     
       </Container>
     </div>
   );
