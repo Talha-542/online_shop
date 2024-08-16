@@ -18,7 +18,7 @@ const Header = () => {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">E-commerce</Link>
+          <Link className="navbar-brand" to="/">Online Shop</Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -36,7 +36,7 @@ const Header = () => {
                 <Link className="nav-link" to='/home'>Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to='/product'>Products</Link>
+                <Link className="nav-link" to='/products'>Products</Link>
               </li>
               <Link className="nav-link" to="/cart">
                   <FontAwesomeIcon icon={faCartShopping} /> {/* Cart icon */}

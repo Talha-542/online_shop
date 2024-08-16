@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 const Logout = () => {
   const dispatch = useDispatch();
-  const Navigate =  useNavigate()
+  const navigate =  useNavigate()
 
 
 
   const handleLogout = () => {
     dispatch(logout());
-    Navigate ("/")
+    navigate ("/")
   };
 
   return (
