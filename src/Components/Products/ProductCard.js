@@ -1,30 +1,38 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/cartSlice';
 
-const ProductCard = ({ id, imageUrl, altText, title, description, price }) => {
+const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
+  const [showAlert, setShowAlert] = useState(false);
 
-  const handleAddToCart = () => {
-    dispatch(addToCart({ id, imageUrl, altText, title, description, price }));
+  const addToCartHandler = () => {
+    dispatch(addToCart(product));
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 1000); 
   };
 
   return (
-    <Card className="mb-4" style={{ border: "none" }}>
-      <Card.Img 
-        variant="top" 
-        src={imageUrl}  
-        style={{ width: "15rem", height: "15rem", margin: "50px" }} 
-        alt={altText} 
-        className="product-card-img" 
+    
+    <Card className="mb-4" style={{ border: 'none' }}>
+      <Card.Img
+        variant="top"
+        src={product.image}
+        alt={product.title}
+        style={{ height: '15rem', width: '15rem', paddingLeft: '10px' }}
       />
       <Card.Body>
-        <Card.Title style={{ fontSize: "17px" }}>{title}</Card.Title>
-        <Card.Text style={{ fontSize: "18px" }}>
-          <strong>${price}</strong>
-        </Card.Text>
-        <Button variant="primary" onClick={handleAddToCart}>Add to Cart</Button>
+        <Card.Title>{product.title}</Card.Title>
+        <Card.Text>${product.price}</Card.Text>
+        <Button variant="primary" onClick={addToCartHandler}>
+          Add to Cart
+        </Button>
+        {showAlert && (
+          <div className="alert alert-primary mt-2" role="alert">
+            Added to cart!
+          </div>
+        )}
       </Card.Body>
     </Card>
   );

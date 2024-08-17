@@ -1,19 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   items: [],
 };
 
 const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     addToCart: (state, action) => {
       const item = action.payload;
-      const existingItem = state.items.find(
-        (item) => item.id === action.payload.id
-      );
-
+      const existingItem = state.items.find((i) => i.id === item.id);
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
@@ -21,44 +18,29 @@ const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, action) => {
-      return {
-        ...state,
-        items: state.items.filter((item) => item.id !== action.payload.id),
-      };
+      const id = action.payload;
+      state.items = state.items.filter((item) => item.id !== id);
     },
     clearCart: (state) => {
-      return {
-        ...state,
-        items: [],
-      };
+      state.items = [];
     },
-    increment: (state, action) => {
-      return {
-        ...state,
-        items: state.items.map((item) =>
-          item.id === action.payload.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        ),
-      };
+    incrementQuantity: (state, action) => {
+      const id = action.payload;
+      const existingItem = state.items.find((i) => i.id === id);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      }
     },
-    decrement: (state, action) => {
-      return {
-        ...state,
-        items: state.items
-          .map((item) =>
-            item.id === action.payload.id
-              ? item.quantity > 1
-                ? { ...item, quantity: item.quantity - 1 }
-                : null
-              : item
-          )
-          .filter(Boolean),
-      };
+    decrementQuantity: (state, action) => {
+      const id = action.payload;
+      const existingItem = state.items.find((i) => i.id === id);
+      if (existingItem && existingItem.quantity > 1) {
+        existingItem.quantity -= 1;
+      }
     },
   },
 });
 
-export const { addToCart, removeFromCart, clearCart, increment, decrement } =
-  cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = cartSlice.actions;
+
 export default cartSlice.reducer;
