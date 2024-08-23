@@ -18,6 +18,14 @@ const AdminDashboard = () => {
   const [showProducts, setShowProducts] = useState(false);
   const [showOrders, setShowOrders] = useState(false);
 
+  const [editUser, setEditUser] = useState(null);
+  const [editProduct, setEditProduct] = useState(null);
+  const [editOrder, setEditOrder] = useState(null);
+
+  const [newUser, setNewUser] = useState({ name: { firstname: '', lastname: '' }, username: '', phone: '' });
+  const [newProduct, setNewProduct] = useState({ title: '', price: '', description: '' });
+  const [newOrder, setNewOrder] = useState({ userId: '', date: '', products: [] });
+
   const handleLogin = (e) => {
     e.preventDefault();
     if (username === 'Admin' && password === '12345') {
@@ -63,9 +71,108 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleEditUser = (user) => {
+    setEditUser({ ...user });
+  };
+
+  const handleSaveUser = async () => {
+    try {
+      const response = await axios.put(`https://fakestoreapi.com/users/${editUser.id}`, editUser);
+      setUsers(users.map((u) => (u.id === editUser.id ? response.data : u)));
+      setEditUser(null);
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
+  };
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      await axios.delete(`https://fakestoreapi.com/users/${userId}`);
+      setUsers(users.filter((u) => u.id !== userId));
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
+  const handleEditProduct = (product) => {
+    setEditProduct({ ...product });
+  };
+
+  const handleSaveProduct = async () => {
+    try {
+      const response = await axios.put(`https://fakestoreapi.com/products/${editProduct.id}`, editProduct);
+      setProducts(products.map((p) => (p.id === editProduct.id ? response.data : p)));
+      setEditProduct(null);
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      await axios.delete(`https://fakestoreapi.com/products/${productId}`);
+      setProducts(products.filter((p) => p.id !== productId));
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
+
+  const handleEditOrder = (order) => {
+    setEditOrder({ ...order });
+  };
+
+  const handleSaveOrder = async () => {
+    try {
+      const response = await axios.put(`https://fakestoreapi.com/carts/${editOrder.id}`, editOrder);
+      setOrders(orders.map((o) => (o.id === editOrder.id ? response.data : o)));
+      setEditOrder(null);
+    } catch (error) {
+      console.error('Error updating order:', error);
+    }
+  };
+
+  const handleDeleteOrder = async (orderId) => {
+    try {
+      await axios.delete(`https://fakestoreapi.com/carts/${orderId}`);
+      setOrders(orders.filter((o) => o.id !== orderId));
+    } catch (error) {
+      console.error('Error deleting order:', error);
+    }
+  };
+
+  const handleCreateUser = async () => {
+    try {
+      const response = await axios.post('https://fakestoreapi.com/users', newUser);
+      setUsers([...users, response.data]);
+      setNewUser({ name: { firstname: '', lastname: '' }, username: '', phone: '' });
+    } catch (error) {
+      console.error('Error creating user:', error);
+    }
+  };
+
+  const handleCreateProduct = async () => {
+    try {
+      const response = await axios.post('https://fakestoreapi.com/products', newProduct);
+      setProducts([...products, response.data]);
+      setNewProduct({ title: '', price: '', description: '' });
+    } catch (error) {
+      console.error('Error creating product:', error);
+    }
+  };
+
+  const handleCreateOrder = async () => {
+    try {
+      const response = await axios.post('https://fakestoreapi.com/carts', newOrder);
+      setOrders([...orders, response.data]);
+      setNewOrder({ userId: '', date: '', products: [] });
+    } catch (error) {
+      console.error('Error creating order:', error);
+    }
+  };
+
   if (!isAuthenticated) {
     return (
-      <div 
+      <div
         className="container mt-5"
         style={{
           maxWidth: '400px',
@@ -113,16 +220,70 @@ const AdminDashboard = () => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Manage Users</h5>
-              <p className="card-text">View and manage user accounts.</p>
-              <button className="btn btn-primary" onClick={fetchUsers}>
+              <p className="card-text">Create, view, edit, or delete user accounts.</p>
+              <button className="btn btn-primary mb-3" onClick={fetchUsers}>
                 View Users
+              </button>
+              <button className="btn btn-success mb-3" style={{ marginLeft: '2px' }} onClick={handleCreateUser}>
+                Create New User
               </button>
               {showUsers && (
                 <ul className="mt-3">
                   {users.map((user) => (
-                    <li key={user.id}><strong>Name:</strong>{user.name.firstname+ user.name.lastname}, <br/><strong>Username:</strong>{user.username},<br/><strong>Contact No:</strong>{user.phone}<hr/></li>
+                    <li key={user.id}>
+                      <strong>Name:</strong> {user?.name?.firstname || 'N/A'} {user?.name?.lastname || 'N/A'}
+                      <br />
+                      <strong>Username:</strong> {user?.username || 'N/A'}
+                      <br />
+                      <strong>Contact No:</strong> {user?.phone || 'N/A'}
+                      <br />
+                      <button className="btn btn-sm btn-warning" onClick={() => handleEditUser(user)}>
+                        Edit
+                      </button>
+                      <button className="btn btn-sm btn-danger ms-2" onClick={() => handleDeleteUser(user.id)}>
+                        Delete
+                      </button>
+                      <hr />
+                    </li>
                   ))}
                 </ul>
+              )}
+              {editUser && (
+                <div>
+                  <h5>Edit User</h5>
+                  <input
+                    type="text"
+                    placeholder='First Name'
+                    style={{ marginBottom: '2px' }}
+                    value={editUser?.name?.firstname || ''}
+                    onChange={(e) => setEditUser({ ...editUser, name: { ...editUser.name, firstname: e.target.value } })}
+                  />
+                  <input
+                    type="text"
+                    placeholder='Last Name'
+                    style={{ marginBottom: '2px' }}
+                    value={editUser?.name?.lastname || ''}
+                    onChange={(e) => setEditUser({ ...editUser, name: { ...editUser.name, lastname: e.target.value } })}
+                  />
+                  <input
+                    type="text"
+                    placeholder='Username'
+                    style={{ marginBottom: '2px' }}
+                    value={editUser?.username || ''}
+                    onChange={(e) => setEditUser({ ...editUser, username: e.target.value })}
+                  />
+                  <input
+                    type="text"
+                    placeholder='Phone no'
+                    style={{ marginBottom: '2px' }}
+                    value={editUser?.phone || ''}
+                    onChange={(e) => setEditUser({ ...editUser, phone: e.target.value })}
+                  />
+                  <button className="btn btn-sm btn-primary"
+                    style={{ marginLeft: '2px' }} onClick={handleSaveUser}>
+                    Save
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -131,40 +292,134 @@ const AdminDashboard = () => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Manage Products</h5>
-              <p className="card-text">Add, edit, or delete products.</p>
-              <button className="btn btn-primary" onClick={fetchProducts}>
+              <p className="card-text">Create, view, edit, or delete products.</p>
+              <button className="btn btn-primary mb-3" onClick={fetchProducts}>
                 View Products
+              </button>
+              <button
+                className="btn btn-success mb-3"
+                style={{ marginLeft: '10px' }}
+                onClick={handleCreateProduct}
+              >
+                Create New Product
               </button>
               {showProducts && (
                 <ul className="mt-3">
                   {products.map((product) => (
-                    <li key={product.id}>{product.title}<hr/></li>
+                    <li key={product.id}>
+                      {product.title}
+                      <br />
+                      <button
+                        className="btn btn-sm btn-warning"
+                        onClick={() => handleEditProduct(product)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-sm btn-danger ms-2"
+                        onClick={() => handleDeleteProduct(product.id)}
+                      >
+                        Delete
+                      </button>
+                      <hr />
+                    </li>
                   ))}
                 </ul>
+              )}
+              {editProduct && (
+                <div>
+                  <h5>Edit Product</h5>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    style={{ marginBottom: '2px' }}
+                    value={editProduct?.title || ''}
+                    onChange={(e) => setEditProduct({ ...editProduct, title: e.target.value })}
+                  />
+                  <input
+                    type="text"
+                    value={editProduct?.price || ''}
+                    placeholder="Price"
+                    style={{ marginBottom: '2px' }}
+                    onChange={(e) => setEditProduct({ ...editProduct, price: e.target.value })}
+                  />
+                  <textarea
+                    value={editProduct?.description || ''}
+                    placeholder="Description"
+                    onChange={(e) => setEditProduct({ ...editProduct, description: e.target.value })}
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ marginBottom: '2px' }}
+                    onChange={(e) => setEditProduct({ ...editProduct, image: e.target.files[0] })}
+                  />
+                  <button
+                    className="btn btn-sm btn-primary"
+                    style={{ marginLeft: '5px' }}
+                    onClick={handleSaveProduct}
+                  >
+                    Save
+                  </button>
+                </div>
               )}
             </div>
           </div>
         </div>
+
         <div className="col-md-4">
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Manage Orders</h5>
-              <p className="card-text">View and update customer orders.</p>
-              <button className="btn btn-primary" onClick={fetchOrders}>
+              <p className="card-text">Create, view, edit, or delete customer orders.</p>
+              <button className="btn btn-primary mb-3" onClick={fetchOrders}>
                 View Orders
+              </button>
+              <button className="btn btn-success mb-3" style={{ marginLeft: '2px' }} onClick={handleCreateOrder}>
+                Create New Order
               </button>
               {showOrders && (
                 <ul className="mt-3">
                   {orders.length > 0 ? (
                     orders.map((order) => (
                       <li key={order.id}>
-                        Order ID: {order.id}, User ID: {order.userId}, Date: {order.date} <hr/>
+                        Order ID: {order.id}, User ID: {order.userId}, Date: {order.date}
+                        <br />
+                        <button className="btn btn-sm btn-warning" onClick={() => handleEditOrder(order)}>
+                          Edit
+                        </button>
+                        <button className="btn btn-sm btn-danger ms-2" onClick={() => handleDeleteOrder(order.id)}>
+                          Delete
+                        </button>
+                        <hr />
                       </li>
                     ))
                   ) : (
                     <p>No Orders Yet</p>
                   )}
                 </ul>
+              )}
+              {editOrder && (
+                <div>
+                  <h5>Edit Order</h5>
+                  <input
+                    type="text"
+                    placeholder='User Id'
+                    style={{ marginBottom: '2px' }}
+                    value={editOrder?.userId || ''}
+                    onChange={(e) => setEditOrder({ ...editOrder, userId: e.target.value })}
+                  />
+                  <input
+                    type="text"
+                    placeholder='Date'
+                    style={{ marginBottom: '2px' }}
+                    value={editOrder?.date || ''}
+                    onChange={(e) => setEditOrder({ ...editOrder, date: e.target.value })}
+                  />
+                  <button className="btn btn-sm btn-primary" style={{ marginLeft: '2px' }} onClick={handleSaveOrder}>
+                    Save
+                  </button>
+                </div>
               )}
             </div>
           </div>
