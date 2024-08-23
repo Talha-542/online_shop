@@ -1,0 +1,137 @@
+.dashboard-container {
+    display: flex;
+  }
+  
+  .login-container {
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 50px auto;
+  }
+  
+  .login-form {
+    padding: 20px;
+  }
+  
+  .main-content {
+    margin-left: 250px; 
+    padding: 20px;
+    width: calc(100% - 250px);  
+  }
+  
+  .sidebar {
+    width: 250px;
+    height: 80vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar-title {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar-item {
+    margin: 10px 0;
+  }
+  
+  .sidebar-item a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2em;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .sidebar-item.active a {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .sidebar-item a:hover {
+    background-color: #e9ecef;
+  }
+
+  .dashboard-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .sidebar {
+    width: 250px; 
+    height: 100%;
+    background-color: #f8f9fa;
+    padding: 20px;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1; 
+  }
+  
+  .main-content {
+    margin-left: 250px; 
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto; 
+  }
+  
+  
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .sidebar {
+    width: 250px; 
+    height: 100%;
+    background-color: #f8f9fa;
+    padding: 20px;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1; 
+  }
+  
+  .main-content {
+    margin-left: 250px; 
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto; 
+  }
+  
+  .navbar {
+    width: calc(100% - 250px); 
+    position: fixed; 
+    top: 0;
+    left: 250px;
+    background-color: #343a40; 
+    color: white;
+    z-index: 2;
+    padding: 10px;
+  }
+  
+  .navbar .nav-item {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+  }
+  
+  .navbar .nav-item:hover {
+    background-color: #495057;
+  }
+  
