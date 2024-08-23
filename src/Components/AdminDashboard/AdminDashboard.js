@@ -224,7 +224,7 @@ const AdminDashboard = () => {
               <button className="btn btn-primary mb-3" onClick={fetchUsers}>
                 View Users
               </button>
-              <button className="btn btn-success mb-3" style={{marginLeft:'2px'}} onClick={handleCreateUser}>
+              <button className="btn btn-success mb-3" style={{ marginLeft: '2px' }} onClick={handleCreateUser}>
                 Create New User
               </button>
               {showUsers && (
@@ -254,33 +254,33 @@ const AdminDashboard = () => {
                   <input
                     type="text"
                     placeholder='First Name'
-                    style={{marginBottom:'2px'}}
+                    style={{ marginBottom: '2px' }}
                     value={editUser?.name?.firstname || ''}
                     onChange={(e) => setEditUser({ ...editUser, name: { ...editUser.name, firstname: e.target.value } })}
                   />
                   <input
                     type="text"
                     placeholder='Last Name'
-                    style={{marginBottom:'2px'}}
+                    style={{ marginBottom: '2px' }}
                     value={editUser?.name?.lastname || ''}
                     onChange={(e) => setEditUser({ ...editUser, name: { ...editUser.name, lastname: e.target.value } })}
                   />
                   <input
                     type="text"
                     placeholder='Username'
-                    style={{marginBottom:'2px'}}
+                    style={{ marginBottom: '2px' }}
                     value={editUser?.username || ''}
                     onChange={(e) => setEditUser({ ...editUser, username: e.target.value })}
                   />
                   <input
                     type="text"
                     placeholder='Phone no'
-                    style={{marginBottom:'2px'}}
+                    style={{ marginBottom: '2px' }}
                     value={editUser?.phone || ''}
                     onChange={(e) => setEditUser({ ...editUser, phone: e.target.value })}
                   />
-                  <button className="btn btn-sm btn-primary" 
-                    style={{marginLeft:'2px'}} onClick={handleSaveUser}>
+                  <button className="btn btn-sm btn-primary"
+                    style={{ marginLeft: '2px' }} onClick={handleSaveUser}>
                     Save
                   </button>
                 </div>
@@ -296,7 +296,11 @@ const AdminDashboard = () => {
               <button className="btn btn-primary mb-3" onClick={fetchProducts}>
                 View Products
               </button>
-              <button className="btn btn-success mb-3" style={{marginLeft:'2px'}} onClick={handleCreateProduct}>
+              <button
+                className="btn btn-success mb-3"
+                style={{ marginLeft: '10px' }}
+                onClick={handleCreateProduct}
+              >
                 Create New Product
               </button>
               {showProducts && (
@@ -305,10 +309,16 @@ const AdminDashboard = () => {
                     <li key={product.id}>
                       {product.title}
                       <br />
-                      <button className="btn btn-sm btn-warning" onClick={() => handleEditProduct(product)}>
+                      <button
+                        className="btn btn-sm btn-warning"
+                        onClick={() => handleEditProduct(product)}
+                      >
                         Edit
                       </button>
-                      <button className="btn btn-sm btn-danger ms-2" onClick={() => handleDeleteProduct(product.id)}>
+                      <button
+                        className="btn btn-sm btn-danger ms-2"
+                        onClick={() => handleDeleteProduct(product.id)}
+                      >
                         Delete
                       </button>
                       <hr />
@@ -321,25 +331,34 @@ const AdminDashboard = () => {
                   <h5>Edit Product</h5>
                   <input
                     type="text"
-                    placeholder='Product Name'
-                    style={{marginBottom:'2px'}}
+                    placeholder="Title"
+                    style={{ marginBottom: '2px' }}
                     value={editProduct?.title || ''}
                     onChange={(e) => setEditProduct({ ...editProduct, title: e.target.value })}
                   />
                   <input
                     type="text"
-                    placeholder='Price'
-                    style={{marginBottom:'2px'}}
                     value={editProduct?.price || ''}
+                    placeholder="Price"
+                    style={{ marginBottom: '2px' }}
                     onChange={(e) => setEditProduct({ ...editProduct, price: e.target.value })}
                   />
                   <textarea
                     value={editProduct?.description || ''}
-                    placeholder='Description'
-                    style={{marginBottom:'2px'}}
+                    placeholder="Description"
                     onChange={(e) => setEditProduct({ ...editProduct, description: e.target.value })}
                   />
-                  <button className="btn btn-sm btn-primary" style={{marginLeft:'2px'}} onClick={handleSaveProduct}>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ marginBottom: '2px' }}
+                    onChange={(e) => setEditProduct({ ...editProduct, image: e.target.files[0] })}
+                  />
+                  <button
+                    className="btn btn-sm btn-primary"
+                    style={{ marginLeft: '5px' }}
+                    onClick={handleSaveProduct}
+                  >
                     Save
                   </button>
                 </div>
@@ -347,6 +366,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
+
         <div className="col-md-4">
           <div className="card">
             <div className="card-body">
@@ -355,7 +375,7 @@ const AdminDashboard = () => {
               <button className="btn btn-primary mb-3" onClick={fetchOrders}>
                 View Orders
               </button>
-              <button className="btn btn-success mb-3" style={{marginBottom:'2px'}} onClick={handleCreateOrder}>
+              <button className="btn btn-success mb-3" style={{ marginLeft: '2px' }} onClick={handleCreateOrder}>
                 Create New Order
               </button>
               {showOrders && (
@@ -385,18 +405,18 @@ const AdminDashboard = () => {
                   <input
                     type="text"
                     placeholder='User Id'
-                    style={{marginBottom:'2px'}}
+                    style={{ marginBottom: '2px' }}
                     value={editOrder?.userId || ''}
                     onChange={(e) => setEditOrder({ ...editOrder, userId: e.target.value })}
                   />
                   <input
                     type="text"
                     placeholder='Date'
-                    style={{marginBottom:'2px'}}
+                    style={{ marginBottom: '2px' }}
                     value={editOrder?.date || ''}
                     onChange={(e) => setEditOrder({ ...editOrder, date: e.target.value })}
                   />
-                  <button className="btn btn-sm btn-primary" style={{marginLeft:'2px'}} onClick={handleSaveOrder}>
+                  <button className="btn btn-sm btn-primary" style={{ marginLeft: '2px' }} onClick={handleSaveOrder}>
                     Save
                   </button>
                 </div>
