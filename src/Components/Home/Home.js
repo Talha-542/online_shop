@@ -15,7 +15,7 @@ const Home = () => {
               Discover the best deals on fashion, electronics, and more. Our wide range of products ensures you find what you're looking for at unbeatable prices. Shop now and experience the convenience of online shopping like never before.
             </p>
             <Link to="/products"> 
-              <Button variant="primary" size="lg">Shop Now</Button>
+              <Button variant="primary" size="lg" style={{marginBottom:"1px"}}>Shop Now</Button>
             </Link>
           </Col>
           <Col md={6}>
