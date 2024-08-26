@@ -55,6 +55,33 @@ const Home = () => {
           </Col>
         </Row>
 
+        <Row className="mb-4">
+          <Col md={4}>
+            <Card className="text-center p-4">
+              <Card.Title>Quality Products</Card.Title>
+              <Card.Text>
+                We offer a wide selection of high-quality products that meet your needs. Each item is carefully chosen to ensure satisfaction and durability.
+              </Card.Text>
+            </Card>
+          </Col>
+          <Col md={4}>
+            <Card className="text-center p-4">
+              <Card.Title>Fast Shipping</Card.Title>
+              <Card.Text>
+                Enjoy fast and reliable shipping on all your orders. Our efficient delivery network ensures your purchases reach you quickly and safely.
+              </Card.Text>
+            </Card>
+          </Col>
+          <Col md={4}>
+            <Card className="text-center p-4">
+              <Card.Title>Excellent Support</Card.Title>
+              <Card.Text>
+                Our customer support team is here to help you with any questions or issues. We are committed to providing exceptional service and support.
+              </Card.Text>
+            </Card>
+          </Col>
+        </Row>
+
       </Container>
     </div>
   );
