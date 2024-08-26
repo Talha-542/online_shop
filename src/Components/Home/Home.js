@@ -23,7 +23,6 @@ const Home = () => {
               src={onlineshopImg} 
               alt="Shop Now"
               className="img-fluid rounded"
-              style={{marginBottom:"2px"}}
             />
           </Col>
         </Row>
